@@ -6,11 +6,19 @@ Homebrew formulae for Stuart Technologies tools.
 
 ```bash
 brew tap pstuart/tap
+# Private release assets (better-markdown) need GitHub auth:
+export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)
 brew install bmd
 ```
 
 ## Formulae
 
-| Formula | Description |
-|---------|-------------|
-| `bmd` | Better Markdown CLI — export/preview markdown |
+| Formula | Description | Notes |
+|---------|-------------|--------|
+| `bmd` | Better Markdown CLI — export/preview markdown | arm64 + Sonoma+; private release tarball |
+
+## Requirements
+
+- **Apple Silicon** (`arm64`) — Intel Macs are not supported by the published binary.
+- **macOS Sonoma** or later.
+- **GitHub access** to `pstuart/better-markdown` so Homebrew can download the release asset.
