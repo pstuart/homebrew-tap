@@ -1,7 +1,7 @@
 class Bmd < Formula
   desc "Better Markdown CLI - export and preview markdown files"
   homepage "https://github.com/pstuart/better-markdown"
-  url "https://github.com/pstuart/better-markdown/releases/download/v1.0.0/bmd-v1.0.0.tar.gz"
+  url "https://github.com/pstuart/homebrew-tap/releases/download/bmd-v1.0.0/bmd-v1.0.0.tar.gz"
   sha256 "3f6d305ddcc77ccf9a8f3ab54d08d300f6e625b4ba92bf5fce5283eae2bd3d1c"
   license "proprietary"
   version "1.0.0"
