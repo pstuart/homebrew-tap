@@ -17,7 +17,7 @@ brew install barista
 | Formula | Description | Notes |
 |---------|-------------|--------|
 | `bmd` | Better Markdown CLI — export/preview markdown |
-| `barista` | Claude Code modular statusline | arm64 + Sonoma+; private release tarball |
+| `barista` | Claude Code modular statusline | public GitHub source archive; any macOS with bash/jq |
 
 ## Requirements
 
