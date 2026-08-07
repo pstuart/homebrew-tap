@@ -9,13 +9,15 @@ brew tap pstuart/tap
 # Private release assets (better-markdown) need GitHub auth:
 export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)
 brew install bmd
+brew install barista
 ```
 
 ## Formulae
 
 | Formula | Description | Notes |
 |---------|-------------|--------|
-| `bmd` | Better Markdown CLI — export/preview markdown | arm64 + Sonoma+; private release tarball |
+| `bmd` | Better Markdown CLI — export/preview markdown |
+| `barista` | Claude Code modular statusline | public GitHub source archive; any macOS with bash/jq |
 
 ## Requirements
 
