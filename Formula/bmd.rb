@@ -1,44 +1,40 @@
 class Bmd < Formula
   desc "Better Markdown CLI - export and preview markdown files"
-  homepage "https://github.com/pstuart/better-markdown"
+  homepage "https://github.com/pstuart/homebrew-tap"
   url "https://github.com/pstuart/homebrew-tap/releases/download/bmd-v1.0.0/bmd-v1.0.0.tar.gz"
   sha256 "3f6d305ddcc77ccf9a8f3ab54d08d300f6e625b4ba92bf5fce5283eae2bd3d1c"
   license :cannot_represent
-  version "1.0.0"
-
-  depends_on macos: :sonoma
-  depends_on arch: :arm64
 
   livecheck do
-    url :homepage
-    regex(%r{href=.*?/releases/tag/v?(\d+(?:\.\d+)+)["' >]}i)
+    url "https://github.com/pstuart/homebrew-tap/releases"
+    regex(%r{href=.*?/releases/tag/bmd-v?(\d+(?:\.\d+)+)["' >]}i)
+    strategy :page_match
   end
 
+  depends_on arch: :arm64
+  depends_on macos: :sonoma
+
   def install
-    # Archive layout: bmd-dist/bmd + bmd-dist/Frameworks/BetterMarkdownKit.framework
+    # Homebrew strips the archive's single bmd-dist top-level directory.
     libexec.mkpath
     (libexec/"Frameworks").mkpath
 
-    bin.install "bmd-dist/bmd" => "bmd"
-    (libexec/"Frameworks").install "bmd-dist/Frameworks/BetterMarkdownKit.framework"
+    bin.install "bmd"
+    (libexec/"Frameworks").install "Frameworks/BetterMarkdownKit.framework"
 
-    # Prefer baked rpath from release-archive.sh; re-apply if still @rpath.
+    # Prefer the path baked by release-archive.sh; repair legacy assets only.
+    old_framework_path = "@rpath/BetterMarkdownKit.framework/Versions/A/BetterMarkdownKit"
     framework_path = "@executable_path/../libexec/Frameworks/BetterMarkdownKit.framework/Versions/A/BetterMarkdownKit"
-    system "install_name_tool", "-change",
-           "@rpath/BetterMarkdownKit.framework/Versions/A/BetterMarkdownKit",
-           framework_path,
-           bin/"bmd"
-    system "codesign", "--force", "--sign", "-", "--timestamp=none", bin/"bmd"
+    linked_libraries = (bin/"bmd").dynamically_linked_libraries(resolve_variable_references: false)
+    if linked_libraries.include?(old_framework_path)
+      (bin/"bmd").change_install_name(old_framework_path, framework_path)
+      system "codesign", "--force", "--sign", "-", "--timestamp=none", bin/"bmd"
+    end
   end
 
   def caveats
     <<~EOS
-      The bmd release tarball is hosted on the private pstuart/better-markdown
-      repository. Install requires a GitHub token with access to that repo:
-
-        export HOMEBREW_GITHUB_API_TOKEN=$(gh auth token)
-
-      Binary is Apple Silicon (arm64) only.
+      The public release asset contains an Apple Silicon (arm64) binary.
     EOS
   end
 
