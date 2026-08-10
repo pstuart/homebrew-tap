@@ -2,10 +2,15 @@ class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
   url "https://github.com/pstuart/Barista/archive/f7693f71c673e003a9f3d9df0a4c741b6f4181ad.tar.gz"
+  version "1.8.0"
   sha256 "7cd24527ec4d4c1306af70af9485ea1db73599c4d62e1e487e68bd53fe858109"
   license "MIT"
-  version "1.8.0"
   head "https://github.com/pstuart/Barista.git", branch: "main"
+
+  livecheck do
+    url :homepage
+    strategy :github_latest
+  end
 
   depends_on "jq"
   depends_on "bc" => :recommended
@@ -14,7 +19,6 @@ class Barista < Formula
     libexec.install "barista.sh"
     libexec.install "barista.conf"
     libexec.install "VERSION"
-    libexec.install "install.sh"
     libexec.install "modules"
     libexec.install "lib"
 
@@ -30,16 +34,15 @@ class Barista < Formula
     <<~EOS
       Barista ships as a Claude Code statusLine command.
 
-      1. Wire Claude Code (recommended — copies modules into ~/.claude/barista):
-           #{opt_libexec}/install.sh --defaults
-
-         Or set statusLine.command in ~/.claude/settings.json to:
+      1. Set statusLine.command in ~/.claude/settings.json to:
            #{opt_libexec}/barista.sh
+
+         The opt path follows brew upgrades automatically.
 
       2. Reconfigure modules/theme anytime:
            barista config
 
-      3. From-source installs remain available via the upstream repo install.sh.
+      3. The upstream install.sh is for from-source installations only.
     EOS
   end
 
