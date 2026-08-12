@@ -12,7 +12,7 @@ class Bmd < Formula
   end
 
   depends_on arch: :arm64
-  depends_on macos: :sonoma
+  depends_on macos: :sequoia_or_later
 
   def install
     # Homebrew strips the archive's single bmd-dist top-level directory.
