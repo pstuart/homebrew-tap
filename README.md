@@ -20,3 +20,13 @@ brew install barista
 - **barista:** Bash and `jq`; `bc` is recommended for decimal calculations.
 
 The formula uses public GitHub downloads and does not require a GitHub token.
+
+## Local formula checks
+
+```bash
+./scripts/check-formulae.sh
+```
+
+Runs `brew style` on `Formula/barista.rb`. The `bmd`
+formula was removed from this public tap; do not reintroduce it here without a
+macOS 26 (`:tahoe`) floor that matches the published Mach-O `minos`.
