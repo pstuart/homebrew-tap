@@ -2,8 +2,8 @@ class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
   url "https://github.com/pstuart/Barista/archive/refs/tags/v1.8.0.tar.gz"
-  sha256 "276e293cff459b293e7edab5f9253e91e0ee5e9ee5d0a96c29982354ee4d2df2"
   version "1.8.0"
+  sha256 "276e293cff459b293e7edab5f9253e91e0ee5e9ee5d0a96c29982354ee4d2df2"
   license "MIT"
   head "https://github.com/pstuart/Barista.git", branch: "main"
 
