@@ -9,4 +9,22 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-brew style "$root/Formula/barista.rb"
+shopt -s nullglob
+formulae=(Formula/*.rb)
+if ((${#formulae[@]} == 0)); then
+  echo "no formulae in Formula/" >&2
+  exit 1
+fi
+
+brew style "${formulae[@]}"
+
+if brew tap | grep -qx "pstuart/tap"; then
+  names=()
+  for formula in "${formulae[@]}"; do
+    names+=("pstuart/tap/$(basename "$formula" .rb)")
+  done
+  brew audit --strict "${names[@]}"
+else
+  echo "skip brew audit: tap pstuart/tap is not installed" >&2
+  echo "  brew tap pstuart/tap \"$root\"" >&2
+fi
