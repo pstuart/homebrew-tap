@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# Barista — modular shell statusline for Claude Code CLI.
+# Upstream: https://github.com/pstuart/Barista (MIT license).
+#
 class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
