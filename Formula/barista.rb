@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Barista — modular shell statusline for Claude Code CLI.
 class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
@@ -57,12 +60,12 @@ class Barista < Formula
     assert_path_exists libexec/"lib/config-tui.sh"
     assert_path_exists libexec/"modules/utils.sh"
     assert_path_exists libexec/"VERSION"
-    assert_match version.to_s, shell_output("#{bin}/barista version")
-    assert_match "config", shell_output("#{bin}/barista help")
-    assert_match "Usage: barista config", shell_output("#{bin}/barista config --help")
+    assert_match version.to_s, shell_output(bin/"barista version")
+    assert_match "config", shell_output(bin/"barista help")
+    assert_match "Usage: barista config", shell_output(bin/"barista config --help")
     (testpath/"input.json").write <<~EOS
       {"cwd":"#{testpath}","model":{"display_name":"Test"},"context_window":{"used_percentage":5}}
     EOS
-    pipe_output("#{bin}/barista", (testpath/"input.json").read, 0)
+    pipe_output(bin/"barista", (testpath/"input.json").read, 0)
   end
 end
