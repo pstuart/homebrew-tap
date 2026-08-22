@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
