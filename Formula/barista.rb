@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Barista < Formula
   desc "Modular shell statusline for Claude Code CLI"
   homepage "https://github.com/pstuart/Barista"
@@ -63,6 +65,6 @@ class Barista < Formula
     (testpath/"input.json").write <<~EOS
       {"cwd":"#{testpath}","model":{"display_name":"Test"},"context_window":{"used_percentage":5}}
     EOS
-    pipe_output("#{bin}/barista", (testpath/"input.json").read, 0)
+    pipe_output(bin/"barista", (testpath/"input.json").read, 0)
   end
 end
