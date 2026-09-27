@@ -17,11 +17,7 @@ class Barista < Formula
   uses_from_macos "bc"
 
   def install
-    libexec.install "barista.sh"
-    libexec.install "barista.conf"
-    libexec.install "VERSION"
-    libexec.install "modules"
-    libexec.install "lib"
+    libexec.install "barista.sh", "barista.conf", "VERSION", "modules", "lib"
 
     # Wrapper on PATH. Do not symlink: barista.sh resolves SCRIPT_DIR from
     # BASH_SOURCE, so a bin/ symlink would look for modules next to the link.
