@@ -35,7 +35,8 @@ if [[ "${1:-}" == "--check" ]]; then
       fi
       echo "OK $result (${formula})"
     else
-      echo "ruby not found; skipped syntax check: $formula" >&2
+      echo "ruby not found; cannot syntax-check: $formula" >&2
+      status=1
     fi
   done
 
