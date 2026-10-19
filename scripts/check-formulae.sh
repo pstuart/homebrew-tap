@@ -4,6 +4,17 @@ set -euo pipefail
 root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${root}"
 
+# Collect Formula/*.rb into the "formulae" array; exit 1 when none exist.
+load_formulae() {
+  shopt -s nullglob
+  formulae=(Formula/*.rb)
+  shopt -u nullglob
+  if ((${#formulae[@]} == 0)); then
+    echo "no formulae in Formula/" >&2
+    exit 1
+  fi
+}
+
 # Dependency-free self-check: validates the script's own bash syntax and the
 # Ruby syntax of every formula without requiring brew. Intended for local
 # pre-flight in environments without a Homebrew installation; never invokes
@@ -18,13 +29,7 @@ if [[ "${1:-}" == "--check" ]]; then
     echo "OK bash -n ${0}"
   fi
 
-  shopt -s nullglob
-  formulae=(Formula/*.rb)
-  if ((${#formulae[@]} == 0)); then
-    echo "no formulae in Formula/" >&2
-    exit 1
-  fi
-  shopt -u nullglob
+  load_formulae
 
   for formula in "${formulae[@]}"; do
     if command -v ruby >/dev/null 2>&1; then
@@ -48,12 +53,7 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-shopt -s nullglob
-formulae=(Formula/*.rb)
-if ((${#formulae[@]} == 0)); then
-  echo "no formulae in Formula/" >&2
-  exit 1
-fi
+load_formulae
 
 # When this tap is also installed under /opt/homebrew/Library/Taps, checking
 # the local files directly makes RuboCop load the same formula classes from
