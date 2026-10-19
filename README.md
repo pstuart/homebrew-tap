@@ -39,6 +39,7 @@ The formula uses public GitHub downloads and does not require a GitHub token. Up
 
 ```bash
 brew tap pstuart/tap "$PWD"   # once; uses this clone
+brew trust --formula pstuart/tap/barista
 ./scripts/check-formulae.sh
 ```
 
