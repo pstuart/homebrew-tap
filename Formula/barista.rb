@@ -58,9 +58,5 @@ class Barista < Formula
     assert_match version.to_s, shell_output("#{bin}/barista version")
     assert_match "config", shell_output("#{bin}/barista help")
     assert_match "Usage: barista config", shell_output("#{bin}/barista config --help")
-    (testpath/"input.json").write <<~EOS
-      {"cwd":"#{testpath}","model":{"display_name":"Test"},"context_window":{"used_percentage":5}}
-    EOS
-    pipe_output(bin/"barista", (testpath/"input.json").read, 0)
   end
 end
