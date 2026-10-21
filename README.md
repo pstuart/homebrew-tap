@@ -21,7 +21,7 @@ Then set Claude Code `statusLine` in `~/.claude/settings.json` (Homebrew does no
 }
 ```
 
-On Intel Homebrew the prefix is `/usr/local` instead of `/opt/homebrew`. `brew --prefix barista` prints the active keg if you need to confirm.
+`brew --prefix barista` prints the keg path; use its output in `command` (`/opt/homebrew/...` on Apple Silicon, `/usr/local/...` on Intel).
 
 ## Formulae
 
