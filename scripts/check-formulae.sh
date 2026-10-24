@@ -15,39 +15,6 @@ load_formulae() {
   fi
 }
 
-# Dependency-free self-check: validates the script's own bash syntax and the
-# Ruby syntax of every formula without requiring brew. Intended for local
-# pre-flight in environments without a Homebrew installation; never invokes
-# brew. The full brew style/audit lane is the no-arg path below.
-if [[ "${1:-}" == "--check" ]]; then
-  status=0
-
-  if ! bash -n "$0"; then
-    echo "bash syntax check failed: $0" >&2
-    status=1
-  else
-    echo "OK bash -n ${0}"
-  fi
-
-  load_formulae
-
-  for formula in "${formulae[@]}"; do
-    if command -v ruby >/dev/null 2>&1; then
-      if ! result="$(ruby -c "$formula")"; then
-        echo "ruby syntax check failed: $formula" >&2
-        status=1
-        continue
-      fi
-      echo "OK $result (${formula})"
-    else
-      echo "ruby not found; cannot syntax-check: $formula" >&2
-      status=1
-    fi
-  done
-
-  exit "$status"
-fi
-
 if ! command -v brew >/dev/null 2>&1; then
   echo "brew is required to audit formulae" >&2
   exit 1
