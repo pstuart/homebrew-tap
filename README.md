@@ -31,7 +31,7 @@ Then set Claude Code `statusLine` in `~/.claude/settings.json` (Homebrew does no
 
 ## Requirements
 
-- **barista:** Bash and `jq`; `bc` (macOS ships it; Linux brew installs it via `uses_from_macos`).
+- **barista:** Bash and `jq`; `bc` (provided by macOS; the formula's `uses_from_macos "bc"` declaration makes it a Homebrew dependency on Linux).
 
 The formula uses public GitHub downloads and does not require a GitHub token. Update with `brew upgrade barista`. Do not run upstream `install.sh` against a Cellar or `opt` prefix.
 
