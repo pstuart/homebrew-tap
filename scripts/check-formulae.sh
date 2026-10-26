@@ -26,17 +26,22 @@ load_formulae
 # the local files directly makes RuboCop load the same formula classes from
 # both locations and misfire Lint/DuplicateMethods, and it reports
 # Style/Documentation on bare files outside a tap context. In that case the
-# tap-qualified check below covers style for the installed copy, so skip the
-# local style pass; otherwise run it on the local files directly.
+# tap-qualified names below cover style for the installed copy, so use them
+# instead of the local paths; otherwise run it on the local files directly.
 if brew tap | grep -qx "pstuart/tap"; then
-  names=()
+  targets=()
   for formula in "${formulae[@]}"; do
-    names+=("pstuart/tap/$(basename "$formula" .rb)")
+    targets+=("pstuart/tap/$(basename "$formula" .rb)")
   done
-  brew style "${names[@]}"
-  brew audit --strict "${names[@]}"
 else
-  brew style "${formulae[@]}"
+  targets=("${formulae[@]}")
+fi
+
+brew style "${targets[@]}"
+
+if brew tap | grep -qx "pstuart/tap"; then
+  brew audit --strict "${targets[@]}"
+else
   echo "skip brew audit: tap pstuart/tap is not installed" >&2
   echo "  brew tap pstuart/tap \"$root\"" >&2
 fi
