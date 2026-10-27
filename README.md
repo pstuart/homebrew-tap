@@ -39,11 +39,13 @@ The formula uses public GitHub downloads and does not require a GitHub token. Up
 
 ```bash
 brew tap pstuart/tap "$PWD"   # once; uses this clone
-brew trust --formula pstuart/tap/barista
+brew trust --formula pstuart/tap/barista   # Homebrew 6 requires tap trust
 ./scripts/check-formulae.sh
 ```
 
 Runs `brew style` on every `Formula/*.rb`. When `pstuart/tap` is installed it also runs `brew audit --strict`. There is no GitHub Actions CI; see `.github/NO_GITHUB_ACTIONS.md`.
+
+Homebrew 6 requires tap trust; trust the `barista` formula only (`brew trust --formula pstuart/tap/barista`) rather than the whole tap.
 
 Maintainer notes (bump a tag, wrapper vs symlink, do not reintroduce `bmd`) are in [CLAUDE.md](CLAUDE.md).
 
