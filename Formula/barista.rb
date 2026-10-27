@@ -21,33 +21,25 @@ class Barista < Formula
 
     # Wrapper on PATH. Do not symlink: barista.sh resolves SCRIPT_DIR from
     # BASH_SOURCE, so a bin/ symlink would look for modules next to the link.
-    (bin/"barista").write <<~EOS
+    wrapper = bin/"barista"
+    wrapper.write <<~EOS
       #!/bin/bash
       exec "#{libexec}/barista.sh" "$@"
     EOS
-    chmod 0755, bin/"barista"
+    wrapper.chmod 0755
   end
 
   def caveats
     <<~EOS
-      Barista ships as a Claude Code statusLine command.
+      Barista ships as a Claude Code statusLine command. Point statusLine in
+      ~/.claude/settings.json at the opt path so upgrades keep working; Homebrew
+      does not expand $(brew --prefix) inside JSON:
 
-      1. Set statusLine in ~/.claude/settings.json to:
-           {
-             "statusLine": {
-               "type": "command",
-               "command": "#{opt_libexec}/barista.sh"
-             }
-           }
+        {"statusLine": {"type": "command", "command": "#{opt_libexec}/barista.sh"}}
 
-         Use the opt path so brew upgrades keep working. Homebrew does not
-         expand $(brew --prefix) inside JSON.
-
-      2. Reconfigure modules/theme anytime:
-           barista config
-
-      3. The upstream install.sh is for from-source installations only.
-         Update with: brew upgrade barista
+      Reconfigure modules/theme anytime with `barista config`. The upstream
+      install.sh is for from-source installations only; update with
+      `brew upgrade barista`.
     EOS
   end
 
