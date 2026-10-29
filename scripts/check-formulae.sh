@@ -28,7 +28,12 @@ load_formulae
 # Style/Documentation on bare files outside a tap context. In that case the
 # tap-qualified names below cover style for the installed copy, so use them
 # instead of the local paths; otherwise run it on the local files directly.
+tap_installed=0
 if brew tap | grep -qx "pstuart/tap"; then
+  tap_installed=1
+fi
+
+if ((tap_installed)); then
   targets=()
   for formula in "${formulae[@]}"; do
     targets+=("pstuart/tap/$(basename "$formula" .rb)")
@@ -39,7 +44,7 @@ fi
 
 brew style "${targets[@]}"
 
-if brew tap | grep -qx "pstuart/tap"; then
+if ((tap_installed)); then
   brew audit --strict "${targets[@]}"
 else
   echo "skip brew audit: tap pstuart/tap is not installed" >&2
