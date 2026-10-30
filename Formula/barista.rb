@@ -14,7 +14,6 @@ class Barista < Formula
   end
 
   depends_on "jq"
-  uses_from_macos "bc"
 
   def install
     libexec.install "barista.sh", "barista.conf", "VERSION", "modules", "lib"
