@@ -21,7 +21,7 @@ Then set Claude Code `statusLine` in `~/.claude/settings.json` (Homebrew does no
 }
 ```
 
-`brew --prefix barista` prints the keg path; use its output in `command` (`/opt/homebrew/...` on Apple Silicon, `/usr/local/...` on Intel).
+Use the stable `opt` prefix path shown above: `$(brew --prefix)/opt/barista/libexec/barista.sh` (`/opt/homebrew/opt/...` on Apple Silicon, `/usr/local/opt/...` on Intel). Do not use `brew --prefix barista` — it prints the versioned Cellar keg path, which changes on every `brew upgrade`.
 
 ## Formulae
 
