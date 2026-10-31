@@ -31,7 +31,7 @@ Use the stable `opt` prefix path shown above: `$(brew --prefix)/opt/barista/libe
 
 ## Requirements
 
-- **barista:** Bash, `jq` and `bc`. The formula does not install `bc` on macOS or Linux — install it with your system package manager (for example `apt install bc`, `dnf install bc` or `apk add bc`).
+- **barista:** Bash and `jq`. The formula declares `depends_on "jq"` and uses Bash, so Homebrew installs both. Upstream Barista may additionally use `bc` at runtime; if your system lacks it, install it with your package manager (for example `apt install bc`, `dnf install bc` or `apk add bc`).
 
 The formula uses public GitHub downloads and does not require a GitHub token. Update with `brew upgrade barista`. Do not run upstream `install.sh` against a Cellar or `opt` prefix.
 
