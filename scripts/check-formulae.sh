@@ -44,10 +44,7 @@ fi
 
 brew style "${targets[@]}"
 
-if ((!tap_installed)); then
-  echo "skip brew audit: tap pstuart/tap is not installed" >&2
-  echo "  brew tap pstuart/tap \"$root\"" >&2
-  exit 0
+# brew audit --strict only works against the installed tap copy.
+if ((tap_installed)); then
+  brew audit --strict "${targets[@]}"
 fi
-
-brew audit --strict "${targets[@]}"
