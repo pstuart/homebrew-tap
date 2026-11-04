@@ -43,7 +43,7 @@ brew trust --formula pstuart/tap/barista   # Homebrew 6 requires tap trust
 ./scripts/check-formulae.sh
 ```
 
-Runs `brew style` on every `Formula/*.rb`. When `pstuart/tap` is installed it also runs `brew audit --strict`. There is no GitHub Actions CI; see `.github/NO_GITHUB_ACTIONS.md`.
+The script runs `brew style` on the local `Formula/*.rb` files when `pstuart/tap` is not installed. When the tap is installed it instead styles the tap-qualified names (`pstuart/tap/<formula>`) — running the local paths against an installed tap makes RuboCop load the same formula classes twice and misfire `Lint/DuplicateMethods`. In that installed case it also runs `brew audit --strict` on the same tap-qualified names; `brew audit` only works against the installed tap copy. There is no GitHub Actions CI; see `.github/NO_GITHUB_ACTIONS.md`.
 
 Homebrew 6 requires tap trust; trust the `barista` formula only (`brew trust --formula pstuart/tap/barista`) rather than the whole tap.
 
