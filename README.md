@@ -47,6 +47,4 @@ The script runs `brew style` on the local `Formula/*.rb` files when `pstuart/tap
 
 Homebrew 6 requires tap trust; trust the `barista` formula only (`brew trust --formula pstuart/tap/barista`) rather than the whole tap.
 
-Maintainer notes (bump a tag, wrapper vs symlink, do not reintroduce `bmd`) are in [CLAUDE.md](CLAUDE.md).
-
-The `bmd` formula was removed from this public tap; do not reintroduce it here without a macOS 26 (`:tahoe`) floor that matches the published Mach-O `minos`.
+Maintainer notes (bump a tag, wrapper vs symlink, do not reintroduce `bmd`) are in [CLAUDE.md](CLAUDE.md) — see its "Do not" section for the `bmd` reintroduction rule.
